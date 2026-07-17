@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+import SiteNav from '../components/SiteNav.astro';
+import DreamGoals from '../components/dreams/DreamGoals';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="My Dream Journey — 20 career goals by Thaticherla Kali Someshwaraprasad" />
+    <title>My Dream Journey — TKSP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 100%; min-height: 100%; background: #050816; overflow-x: hidden; }
+    </style>
+  </head>
+  <body>
+    <!-- Shared site nav sits above the React island -->
+    <SiteNav active="/dreams" />
+    <!-- DreamGoals renders its own internal nav too; hide it via a flag passed via data attr -->
+    <div id="dreams-root" style="padding-top:0;">
+      <DreamGoals client:load />
+    </div>
+  </body>
+</html>

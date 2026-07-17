@@ -1,0 +1,189 @@
+---
+const { active = '' } = Astro.props;
+const links = [
+  { href: '/',        label: 'Portfolio',    icon: '🏠' },
+  { href: '/dreams',  label: 'Dream Goals',  icon: '🚀' },
+  { href: '/journey', label: 'Journey Blog', icon: '📖' },
+];
+---
+
+<nav id="site-nav">
+  <div class="sn-inner">
+    <!-- Logo -->
+    <a href="/" class="sn-logo">
+      TKSP<span class="sn-dot">.</span>
+    </a>
+
+    <!-- Links -->
+    <ul class="sn-links" id="sn-links">
+      {links.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class={`sn-link ${active === link.href ? 'sn-active' : ''}`}
+          >
+            <span class="sn-link-icon">{link.icon}</span>
+            <span>{link.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Hamburger -->
+    <button class="sn-hamburger" id="sn-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<style>
+  #site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 2000;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  #site-nav.scrolled {
+    background: rgba(5, 8, 22, 0.93);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.12);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+
+  .sn-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.9rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .sn-logo {
+    font-family: 'Orbitron', 'Courier New', monospace;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-shadow: 0 0 16px rgba(0,255,255,0.4);
+    flex-shrink: 0;
+  }
+  .sn-dot { color: #00FFFF; }
+
+  .sn-links {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    margin: 0; padding: 0;
+  }
+
+  .sn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1.1rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.25s ease;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .sn-link:hover {
+    color: #00FFFF;
+    border-color: rgba(0,255,255,0.3);
+    background: rgba(0,255,255,0.07);
+    box-shadow: 0 0 14px rgba(0,255,255,0.15);
+  }
+
+  .sn-active {
+    color: #000 !important;
+    background: linear-gradient(135deg, #00BFFF, #00FFFF) !important;
+    border-color: transparent !important;
+    box-shadow: 0 0 20px rgba(0,191,255,0.45) !important;
+  }
+
+  .sn-link-icon { font-size: 0.9rem; }
+
+  /* Hamburger */
+  .sn-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  .sn-hamburger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .sn-links {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(5,8,22,0.97);
+      backdrop-filter: blur(20px);
+      padding: 5rem 2rem 2rem;
+      gap: 1rem;
+      z-index: 1999;
+    }
+    .sn-links.open { display: flex; }
+    .sn-link {
+      font-size: 1.1rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      width: 100%;
+      justify-content: center;
+    }
+    .sn-hamburger { display: flex; z-index: 2001; }
+  }
+</style>
+
+<script>
+  // Scroll glass effect
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav?.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  // Always scrolled if not at top on load
+  if (window.scrollY > 40) nav?.classList.add('scrolled');
+  else nav?.classList.add('scrolled'); // always on for readability
+
+  // Hamburger
+  const burger = document.getElementById('sn-hamburger');
+  const snLinks = document.getElementById('sn-links');
+  burger?.addEventListener('click', () => {
+    snLinks?.classList.toggle('open');
+    const spans = burger.querySelectorAll('span');
+    const isOpen = snLinks?.classList.contains('open');
+    spans[0].style.transform = isOpen ? 'rotate(45deg) translate(5px,5px)' : '';
+    spans[1].style.opacity  = isOpen ? '0' : '1';
+    spans[2].style.transform = isOpen ? 'rotate(-45deg) translate(5px,-5px)' : '';
+  });
+  snLinks?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      snLinks.classList.remove('open');
+      burger?.querySelectorAll('span').forEach((s: any) => { s.style.transform = ''; s.style.opacity = ''; });
+    });
+  });
+</script>
