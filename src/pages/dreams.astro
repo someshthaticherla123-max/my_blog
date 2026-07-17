@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import SiteNav from '../components/SiteNav.astro';
 import DreamGoals from '../components/dreams/DreamGoals';
 ---
 
@@ -20,11 +19,6 @@ import DreamGoals from '../components/dreams/DreamGoals';
     </style>
   </head>
   <body>
-    <!-- Shared site nav sits above the React island -->
-    <SiteNav active="/dreams" />
-    <!-- DreamGoals renders its own internal nav too; hide it via a flag passed via data attr -->
-    <div id="dreams-root" style="padding-top:0;">
-      <DreamGoals client:load />
-    </div>
+    <DreamGoals client:only="react" />
   </body>
 </html>
