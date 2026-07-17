@@ -1,5 +1,4 @@
 ---
-import '../styles/global.css';
 import DreamGoals from '../components/dreams/DreamGoals';
 ---
 
@@ -12,10 +11,22 @@ import DreamGoals from '../components/dreams/DreamGoals';
     <title>My Dream Journey — TKSP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 100%; min-height: 100%; background: #050816; overflow-x: hidden; }
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 100%;
+        min-height: 100%;
+        background: #050816;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+      ::-webkit-scrollbar { width: 5px; }
+      ::-webkit-scrollbar-track { background: #050816; }
+      ::-webkit-scrollbar-thumb { background: #00BFFF; border-radius: 3px; }
     </style>
   </head>
   <body>
